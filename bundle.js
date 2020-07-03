@@ -22,19 +22,33 @@ function Phrase(content) {
 
   // Returns true if the phrase is a palindrome, false otherwise.
   this.palindrome = function palindrome() {
-    return this.processedContent() === this.processedContent().reverse();
+    if (this.letters()) {
+      return this.processedContent() === this.processedContent().reverse();
+    } else {
+      return false;
+    }
   }
 }
 
 },{}],2:[function(require,module,exports){
 let Phrase = require("eongering-palindrome");
 
-let string = prompt("Please enter a string for palindrome testing:");
-let phrase = new Phrase(string);
-if (phrase.palindrome()) {
-  alert(`"${phrase.content}" is a palindrome!`);
-} else {
-  alert(`"${phrase.content}" is not a palindrome.`);
+function palindromeTester(event) {
+  event.preventDefault();
+  let phrase = new Phrase(event.target.phrase.value);
+  let palindromeResult = document.querySelector("#palindromeResult");
+  if (phrase.palindrome()) {
+    palindromeResult.innerHTML = `"${phrase.content}" is a palindrome!`;
+  } else {
+    palindromeResult.innerHTML = `"${phrase.content}" is not a palindrome.`;
+  }
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+  let button = document.querySelector("#palindromeTester");
+  button.addEventListener("submit", function() {
+    palindromeTester(event);
+  })
+})
 
 },{"eongering-palindrome":1}]},{},[2]);
